@@ -1,8 +1,8 @@
 {
-  "name": "SimpleMixerChatBot",
+  "name": "simple-mixer-chatbot",
   "version": "1.0.0",
   "description": "A simple Mixer ChatBot",
-  "main": "index.js",
+  "main": "mixerClient.ts",
   "scripts": {
     "test": "testChat"
   },
@@ -19,5 +19,9 @@
   "bugs": {
     "url": "https://github.com/SpilledMilkCOM/SimpleMixerChatBot/issues"
   },
-  "homepage": "https://github.com/SpilledMilkCOM/SimpleMixerChatBot"
+  "homepage": "https://github.com/SpilledMilkCOM/SimpleMixerChatBot",
+  "dependencies": {
+    "beam-client-node": "^1.0.3",
+    "ws": "^4.0.0"
+  }
 }
