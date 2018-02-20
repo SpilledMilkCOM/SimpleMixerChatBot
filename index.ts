@@ -4,40 +4,40 @@
 import Mixer = require('beam-client-node');
 import ws = require('ws');
 
-let userInfo;
+let userInfo: any;
 
 const client = new Mixer.Client(new Mixer.DefaultRequestRunner());
-const clientOptions = 
+
+let clientOptions: Mixer.IOAuthProviderOptions = {
+    clientId: "simple-mixer-chatbot",
+    secret: undefined,
+    //tokens: undefined
+    tokens: {
+        access: 'k7fotU53BN2J1bsgo3iZfK2hZGAG9xUxubtS7gTDdcslK9NLjzcChuVifaEFuDsZ',
+        //access: 'Click here to get your Token!',
+        expires: (Date.now() + (365 * 24 * 60 * 60 * 1000)).toString(),
+        refresh: undefined
+    }
+};
 
 // With OAuth we don't need to log in. The OAuth Provider will attach
 // the required information to all of our requests after this call.
-client.use(new Mixer.OAuthProvider(client,
-    {
-        clientId: null,
-        secret: null,
-        tokens: null
-    }));
-
-// tokens: {
-//     //access: 'k7fotU53BN2J1bsgo3iZfK2hZGAG9xUxubtS7gTDdcslK9NLjzcChuVifaEFuDsZ',     // Token from https://github.com/BeastEX/ChatBot_Project/blob/master/bot_test.js
-//     access: 'Click here to get your Token!',
-//     expires: Date.now() + (365 * 24 * 60 * 60 * 1000)
-// },
+client.use(new Mixer.OAuthProvider(client, clientOptions));
 
 // Gets the user that the Access Token we provided above belongs to.
 client.request('GET', 'users/current')
-.then(response => {
-    userInfo = response.body;
-    return new Mixer.ChatService(client).join(response.body.channel.id);
-})
-.then(response => {
-    const body = response.body;
-    return createChatSocket(userInfo.id, userInfo.channel.id, body.endpoints, body.authkey);
-})
-.catch(error => {
-    console.error('Something went wrong.');
-    console.error(error);
-});
+        .then(response => {
+            userInfo = response.body;
+            return new Mixer.ChatService(client).join(response.body.channel.id);
+        })
+        .then(response => {
+            const body = response.body;
+            return createChatSocket(userInfo.id, userInfo.channel.id, body.endpoints, body.authkey);
+        })
+        .catch(error => {
+            console.error('Something went wrong.');
+            console.error(error);
+        });
 
 /**
  * Creates a Mixer chat socket and sets up listeners to various chat events.
@@ -71,8 +71,8 @@ function createChatSocket (userId, channelId, endpoints, authkey) {
     });
 
     return socket.auth(channelId, userId, authkey)
-    .then(() => {
-        console.log('Login successful');
-        return socket.call('msg', ['Hi! I\'m pingbot! Write !ping and I will pong back!']);
-    });
+                .then(() => {
+                    console.log('Login successful');
+                    return socket.call('msg', ['Hi! I\'m pingbot! Write !ping and I will pong back!']);
+                });
 }
