@@ -1,0 +1,23 @@
+{
+  "name": "SimpleMixerChatBot",
+  "version": "1.0.0",
+  "description": "A simple Mixer ChatBot",
+  "main": "index.js",
+  "scripts": {
+    "test": "testChat"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SpilledMilkCOM/SimpleMixerChatBot.git"
+  },
+  "keywords": [
+    "mixer",
+    "chatbot"
+  ],
+  "author": "Mixer.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SpilledMilkCOM/SimpleMixerChatBot/issues"
+  },
+  "homepage": "https://github.com/SpilledMilkCOM/SimpleMixerChatBot"
+}
